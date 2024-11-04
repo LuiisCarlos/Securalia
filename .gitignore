@@ -67,3 +67,5 @@ Thumbs.db
 >>>>>>> 485530dccb9f5d25d28a87cef07a38a57e5eaed6
 hs_err_pid*
 replay_pid*
+/Securalia/dist/
+/SecuraliaBackups/build/

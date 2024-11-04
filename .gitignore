@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # NetBeans specific files
 nbproject/private/
 nbproject/Makefile-Debug.mk
@@ -36,6 +37,14 @@ nbproject/Makefile-*.mk
 # Windows specific files
 Thumbs.db
 
+=======
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+>>>>>>> 485530dccb9f5d25d28a87cef07a38a57e5eaed6
 # BlueJ files
 *.ctxt
 
@@ -51,6 +60,10 @@ Thumbs.db
 *.tar.gz
 *.rar
 
+<<<<<<< HEAD
 # Virtual machine crash logs
+=======
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+>>>>>>> 485530dccb9f5d25d28a87cef07a38a57e5eaed6
 hs_err_pid*
 replay_pid*

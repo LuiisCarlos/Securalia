@@ -1,0 +1,97 @@
+SECURALIA
+
+Programa 1
+ # Ejecutable, GUI
+ # Menú
+	- Programar nueva copia de seguridad
+	- Posibilidad de asignar nombre a cada definición de una copia
+	- Mismo nombre que el directorio de origen + AAMMDD
+	- Especificar intervalo de días entre copias
+	- Modificar una programación
+        - Cambiar directorio de origen
+        - Cambiar directorio de destino
+        - Cambiar intervalo de días
+        - Cambiar nombre
+	- Eliminar una programación
+		- Mostrar info de la ultima copia y de su programación
+	- Ver todas las programaciones
+		- Mostrar info de la ultima copia y de su programación
+ # Objeto CopiaDeSeguridad //Programación de una copia de seguridad
+ # Objeto DAO
+
+Programa 2
+ # Ejecuta al inicio de sesión en el sistema
+ # Comprueba la programación de copias a través de la BBDD
+   - Conecta con la BBDD
+   - Comprueba la fecha de la última copia
+   - Si es el día para hacer una copia, la hace
+   - Al terminar, dormir hilo
+
+--------------------- APUNTES ---------------------
+
+CopiaDeSeguridad atributos:
+	- id
+	- nombre
+	- directorioOrigen
+	- directorioDestino
+	- fechaUtlimaCopia
+	- intervaloDias
+
+Dormir hilo del programa 2 y que cada día compruebe la base de datos
+Si se apaga el sistema, al iniciarse de nuevo que compruebe de nuevo
+
+Ejecutable del programa 1
+Utilizar GUI
+
+Conexión entre programas por la base de datos
+
+Refrescar la base de datos con las nueva fecha de la ultima copia en el programa 2
+
+
+
+# Cada vez que se ejecute el programa, compruebe si hay un archivo .db. Si no existe, crea uno y todas las programaciones se guardarán en dicho archivo.
+ * En vez de utilizar una base de datos, se utiliza un archivo .db
+ * Utilizando un archivo .db la clase DAO funciona de igual manera, solo cambia la conexión, la cual será con el archivo .db en vez de con una base de datos.
+ * Se necesitará una libreria nueva : SQLite
+ * https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc/3.47.0.0
+
+## Control de versiones - 1.0.0.0
+
+## Documentación de las clases
+
+
+
+
+--------------------- BASE DE DATOS ---------------------
+
+CREATE TABLE securalia.schedules (
+	id INT auto_increment NOT NULL,
+	name varchar(100) NOT NULL,
+	source varchar(300) NOT NULL,
+	destination varchar(300) NOT NULL,
+	lastBackup DATE NULL,
+	`interval` INT NOT NULL,
+	CONSTRAINT schedules_pk PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci;
+
+
+--------------------- ESTETICA ---------------------
+Fondo
+F6ECEA
+
+Texto
+77463D 	new Color(119, 70, 61)
+643f38 	new Color(100, 63, 56)
+351e1a 	new Color(53, 30, 26)
+
+Botones
+ba7264 	new Color(186, 114, 100) mouse Exited, mouse Released
+aa6558 	new Color(170, 101, 88) mouse Entered
+8e5347 	new Color(142, 83, 71) mouse Pressed
+
+
+#ba7264
+https://uicolors.app/create

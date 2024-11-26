@@ -1,9 +1,13 @@
 package Classes;
 
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.io.File;
+import java.io.FileWriter;
 
 /**
  * Clase principal que se encarga de gestionar y ejecutar las copias de seguridad programadas.
@@ -32,11 +36,12 @@ public class Main {
         ArrayList<Backup> schedules = DATABASE.getBackups();
         try {
             // Itera sobre cada programación para verificar si corresponde realizar una copia hoy
-            for (Backup schedule: schedules) {
-                // Verifica si la fecha actual coincide con la próxima fecha de copia
+            for (Backup schedule: schedules) {  
+                // Verifica si la fecha actual coincide con la próxima fecha de copia/*
                 if (schedule.getLastBackup().plusDays(schedule.getDayInterval()).toString().equals(CURRENT_DATE.toString())) {
                     // Realiza la copia de la ruta de origen a la ruta de destino
-                    Files.copy(schedule.getSource().toPath(), schedule.getDestination().toPath());
+                    File copy = new File(schedule.getDestination().toPath() + "\\" + schedule.getSource().getName());
+                    Files.copy(schedule.getSource().toPath(), copy.toPath() , StandardCopyOption.REPLACE_EXISTING);
                 }
             }
         } catch (IOException  e) {

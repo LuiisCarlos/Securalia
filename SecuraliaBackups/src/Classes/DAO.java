@@ -103,4 +103,30 @@ public class DAO {
 
         return schedules;
     }
+    
+    /**
+     * Edita una programación de copia de seguridad en la base de datos.
+     * 
+     * @param schedule La programación de copia de seguridad con los nuevos datos.
+     * @return true si la operación fue exitosa, false en caso contrario.
+     */
+    public boolean editBackup(Backup schedule) {
+        try {
+            Connection conn = DriverManager.getConnection(URL);
+            
+            String query = "UPDATE " + TABLE + " SET lastBackup=? WHERE id=?;";
+            try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+                pstmt.setString(1, schedule.getLastBackup().toString());
+                pstmt.setInt(2, schedule.getId());
+                pstmt.executeUpdate();
+            }
+            
+            conn.close();
+        } catch (SQLException e) {
+            System.err.println("ERROR: " + e.getMessage() + "\n");
+            return false;
+        }
+        
+        return true;
+    }
 }

@@ -1,13 +1,12 @@
 package Classes;
 
-import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.io.File;
-import java.io.FileWriter;
+import javax.swing.JOptionPane;
 
 /**
  * Clase principal que se encarga de gestionar y ejecutar las copias de seguridad programadas.
@@ -33,19 +32,27 @@ public class Main {
      * @param args Argumentos de la línea de comandos (no se utilizan en este programa)
      */
     public static void main(String[] args) {
+        copyFile();
+    }
+    
+    private static void copyFile() {
         ArrayList<Backup> schedules = DATABASE.getBackups();
         try {
             // Itera sobre cada programación para verificar si corresponde realizar una copia hoy
             for (Backup schedule: schedules) {  
-                // Verifica si la fecha actual coincide con la próxima fecha de copia/*
-                if (schedule.getLastBackup().plusDays(schedule.getDayInterval()).toString().equals(CURRENT_DATE.toString())) {
+                // Verifica si la fecha actual coincide con la próxima fecha de copia  /*
+                if (schedule.getLastBackup().plusDays(schedule.getDayInterval()).equals(CURRENT_DATE)) {
                     // Realiza la copia de la ruta de origen a la ruta de destino
                     File copy = new File(schedule.getDestination().toPath() + "\\" + schedule.getSource().getName());
                     Files.copy(schedule.getSource().toPath(), copy.toPath() , StandardCopyOption.REPLACE_EXISTING);
+                    schedule.setLastBackup(CURRENT_DATE);
+                    DATABASE.editBackup(schedule);
+                    
                 }
             }
         } catch (IOException  e) {
-            System.err.println("ERROR: " + e.getMessage() + "\n");
+            JOptionPane.showMessageDialog(null,
+                    "No se ha podido realizar una copia de seguridad\nRevisa tus programaciones en Securalia", "Securalia | ¡Atención!", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
